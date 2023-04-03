@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button class="click">Создать контэйнер</button>
+    <div class="container">
+        <div class="box" draggable="true">Перетащи меня</div>
+    </div>
+</body>
+<script>
+    function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+    function getRandomColor () {
+        var hex = Math.floor(Math.random() * 0xFFFFFF);
+        return "#" + ("000000" + hex.toString(16)).substr(-6);
+    }
+
+    let button = document.querySelector('.click');
+    button.addEventListener('click', click);
+
+    function click(event) {
+        let width = getRandomIntInclusive(10, 30) + '%';
+        let height = getRandomIntInclusive(10, 30) + '%';
+        let backgroundColor = getRandomColor();
+        let top = getRandomIntInclusive(0, 100) + '%';
+        let left = getRandomIntInclusive(0, 100) + '%';
+        let position = 'absolute';
+        let box = document.querySelector('.box');
+
+        
+        box.style.width = width;
+        box.style.height = height;
+        box.style.position = position;
+        box.style.top = top;
+        box.style.left = left;
+        box.style.backgroundColor = backgroundColor;
+    }
+
+    let box = document.querySelector('.box');
+    box.addEventListener('dragstart', dragStart)
+    function dragStart(e) {
+        console.log(e.type);
+        setTimeout(() => e.target.style.display = 'none', 0);
+        console.log(e.target);
+    }
+
+    box.addEventListener('dragend', dragEnd)
+    function dragEnd(event) {
+        event.target.style.display = 'inherit'
+    }
+</script>
+</html>

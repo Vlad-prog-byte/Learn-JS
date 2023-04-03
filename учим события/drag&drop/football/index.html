@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .ball {
+            width: 5%;
+        }
+    </style>
+</head>
+<body>
+    <img class="ball" src="./ball.svg" alt="">
+</body>
+<script>
+    
+    let ball = document.querySelector('.ball');
+    ball.ondragstart = function() {
+        return false;
+    };
+    
+    let click = (event) => {
+        let element = event.target;
+        element.style.position = 'absolute';
+        element.style.zIndex = 500;
+        ball.style.left = event.pageX - ball.offsetWidth / 2 + 'px';
+        ball.style.top = event.pageY - ball.offsetHeight / 2 + 'px';
+        console.log(element.style.position, element.style.zIndex);
+
+        ball.addEventListener('mousemove', move);
+        ball.addEventListener('mouseup', (event) => {
+
+    })
+
+    }
+    let move = (event) => {
+        ball.style.left = event.pageX - ball.offsetWidth / 2 + 'px';
+        ball.style.top = event.pageY - ball.offsetHeight / 2 + 'px';
+        console.log('движение');
+        
+    }
+
+    ball.addEventListener('mousedown', click);
+    ball.removeEventListener('mousemove', click); 
+
+</script>
+</html>

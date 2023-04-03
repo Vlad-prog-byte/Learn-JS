@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="item"  draggable="true"></div>
+        </div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <button class="button">Клик</button>
+    </div>
+</body>
+<script>
+    let element = document.querySelector('.item');
+    let item = document.querySelector('.item'); 
+    let container = document.querySelector('.item');
+    let button = document.querySelector('.button');
+
+    button.addEventListener('click', click);
+
+    function click(event) {
+        let boxes = Array.from(document.querySelectorAll(".box"));
+        boxes[2].append(element);
+    }
+
+    const boxes = Array.from(document.querySelectorAll(".box"));
+
+    // let dragStart = function(event) {
+    //     console.log(event.type);
+    //     let element = event.target;
+    //     if (element.getAttribute('class') != 'item')
+    //         return;
+    //     element.classList.add('item_hold');
+    //     setTimeout(() => element.classList.add('item_hide'), 0);
+    // }    
+    // let dragEnd = function(event) {
+    //     console.log(event.type);
+    //     let element = event.target;
+    //     if (!element.classList.contains('item'))
+    //         return;
+    //     element.classList.remove('item_hold');
+    //     element.classList.remove('item_hide');
+    // }
+
+    let dragOver = function(event) {
+        console.log(event.type);
+        event.preventDefault();
+    }
+    let dragEnter = function(event) {
+        console.log(event.type);
+        let element = event.target;
+        if (!element.classList.contains('box'))
+            return;
+        element.classList.add('box_hover');
+    }
+    let dragLeave = function(event) {
+        console.log(event.type);
+        let element = event.target;
+        element.classList.remove('box_hover');
+    }
+    let drop = function(event) {
+        console.log(event.type);
+        let newParent = event.target;
+        newParent.append(element);
+        newParent.classList.remove('box_hover');
+        element.classList.remove('item_hide');
+    }
+
+    // Функция начала перетаскивания элемента
+    function dragstart(e) {
+        // Меняем цвет на фиолетовый
+        e.target.classList.add("item_hold");
+        // Удаляем элемент из бокса
+        setTimeout(() => e.target.classList.add("item_hide"), 0);
+    }
+
+    // Функция завершения перетаскивания элемента
+    function dragend(e) {
+    // Меняем цвет на синий
+    e.target.classList.remove("item_hold");
+    // Возвращаем элемент обратно
+    e.target.classList.remove("item_hide");
+    }
+
+    // Обработчик начала перетаскивания элемента
+    item.addEventListener("dragstart", dragstart);
+    // Обработчик завершения перетаскивания элемента
+    item.addEventListener("dragend", dragend);
+
+
+    // container.addEventListener('dragstart', dragStart);
+    // container.addEventListener('dragend', dragEnd);
+
+    // container.addEventListener('dragover', dragOver);
+    // container.addEventListener('dragenter', dragEnter);
+    // container.addEventListener('dragleave', dragLeave);
+    // container.addEventListener('drop', drop);
+
+    boxes.forEach((box) => {
+    // Когда заходим элементом в бокс
+    box.addEventListener("dragover", dragOver);
+    // Когда отпускаем элемент на нужном боксе
+    box.addEventListener("drop", drop);
+    // Когда достигаем бокс
+    box.addEventListener("dragenter", dragEnter);
+    // Когда покидаем бокс
+    box.addEventListener("dragleave", dragLeave);
+});
+
+
+ 
+</script>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input class="input" type="text">
+</body>
+<script>
+    let input = document.querySelector('input');
+    input.addEventListener('keydown', (event) => {
+        let code = event.keyCode;
+        console.log(code);
+        if (!(code >= 48 && code <= 57 || code == 8 || code == 37 || code == 39 || code >=96 && code <= 105 ))
+            event.preventDefault();
+    })
+</script>
+</html>
